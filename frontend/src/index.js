@@ -1,18 +1,16 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import "./assets/styles/bootstrap.custom.css";
+import "./assets/styles/index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
 import {
   createBrowserRouter,
   createRoutesFromElements,
   Route,
   RouterProvider,
 } from "react-router-dom";
-import { Provider } from "react-redux";
-import store from "./store.js";
 // import 'bootstrap/dist/css/bootstrap.min.css';
-import "./assets/styles/bootstrap.custom.css";
-import "./assets/styles/index.css";
-import App from "./App";
-import reportWebVitals from "./reportWebVitals";
 import PrivateRoute from "./components/PrivateRoute.jsx";
 import HomeView from "./views/HomeView.jsx";
 import ProductView from "./views/ProductView.jsx";
@@ -21,7 +19,11 @@ import LoginView from "./views/LoginView.jsx";
 import RegisterView from "./views/RegisterView.jsx";
 import ShippingView from "./views/ShippingView.jsx";
 import PaymentView from "./views/PaymentView.jsx";
-import PlaceOrderView from './views/PlaceOrderView.jsx';
+import PlaceOrderView from "./views/PlaceOrderView.jsx";
+import OrderView from "./views/OrderView.jsx";
+import store from "./store.js";
+import { Provider } from "react-redux";
+import { PayPalScriptProvider } from '@paypal/react-paypal-js';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -35,6 +37,7 @@ const router = createBrowserRouter(
         <Route path="/shipping" element={<ShippingView />} />
         <Route path="/payment" element={<PaymentView />} />
         <Route path="/orders" element={<PlaceOrderView />} />
+        <Route path="/order/:id" element={<OrderView />} />
       </Route>
     </Route>
   )
@@ -43,9 +46,11 @@ const router = createBrowserRouter(
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <RouterProvider router={router} />
-    </Provider>
+      <Provider store={store}>
+        <PayPalScriptProvider deferLoading={true}>
+          <RouterProvider router={router} />
+        </PayPalScriptProvider>
+      </Provider>
   </React.StrictMode>
 );
 

@@ -1,0 +1,111 @@
+full-stack app with protected private routs and hashed cookies
+error stacking
+mongo db atlas
+postman
+mongodb compass
+private routs
+user authentication
+redux
+react
+json web tokens - secured, hashed web tokens
+http
+cookies mannagment
+save cookies to server
+admin dashboard
+paypal and credit card payment api integration v
+
+
+// building the view and server functionality
+   for shipping (proccess description) //
+
+< adding shipping address to the state using the cart *slice >
+ - initializing a variable for shipping address in the initial cart slice
+   state, (also saved to local storage). (cartSlice.js)
+ - adding new method saveShippingAddress to the cart slice *reducers to add
+   shipping address to the state variable. (cartSlice.js)
+ - using updateCart utility function to update the state with the new 
+   shipping address.(cartSlice.js)
+ - export the saveShippingAddress method in cartSlice.actions object. (cartSlice.js)
+
+< creating a new screen for shipping >
+ - create a new ShippingView component jsx file.
+ - initialize the component state with address, city, postal code,
+   country. (ShippingView.jsx)
+ - add a new Route element (url path to the server)
+   to the router in the index file. (index.js)
+
+ @ at this point we get an empty shipping view when calling the server
+   with /shipping at url end. later this route should 
+   be protected and available only for signed in users. 
+
+< creating and filling the shipping view element content >
+ - create a formContainer component with the requiered fields.
+ - adding each field as a Form component with a label element and a
+   FormControl element that adds the input to the state onChange.
+ @ at this point we will have a shipping view with 4 fields
+   and a submit button.
+
+< create a submitHandler function for the whole form submition
+  and set the state > (ShippingView.jsx)
+ - import redux methods to mannage the state
+ - import Cart method for injecting new shipping address data to state.
+ - import react-router-dom useNavigate for navigation after
+   form submition.
+ - catch the cart from state using redux's useSelector method and extract
+   the shipping address from the state.
+ - set the shipping address properties in the state initialization if exists.
+ - in the submit handler function dispatch using redux's useDispatch to
+   change values in the state, here its specifically to modify the
+   cart in the state.
+ - use the cart state method saveShippingAddress to add the new 
+   values to the state and save them to local storage.
+ - then the handler function will navigate to payment url / view.
+ @ at this point the state will hold the address, the address is
+   also saved to local storage so the data will stay in the inputs
+   of the shipping view.
+
+< create a *private route component, accessible only to signed in users,
+  for the shipping view to access the server >
+ - create a private route component
+ - mechanism: if there is a user - we use *Outlet method to
+   bring and render the next view/route.
+   if no signed in user we use Navigate method to redirect to login url.
+ - we catch the state using redux's useSelector extract the auth state
+   from it and check if there is a signed user.  
+ - this route is where we implement the mechanism. it will return an 
+   Outlet component if there is userInfo or a Navigate component if none.
+ - create a route in index.js that will be nested inside the 'parent' App
+   route (url: /). set the new Route element to use the PrivateRoute
+   element we built before.
+ - nest the shipping cart route inside the new private route so that it
+   will be reduced by PrivateRoute component (this component 
+   takes an empty string as the route's path property). PrivateRoute will
+   check if user info exists and make routing decisions accordingly
+   as described above.
+ - we set the ShippingView element's route as a child of the
+   PrivateRoute route so if we pass the PrivatePath check, it triggers
+   Outlet which will trigger the child route of PrivateRoute that
+   is shipping path (url: '/shipping') that will than render the 
+   shipping view.
+ @ at this point in the browser if we hit the shipping url (no navigation
+   button for it now so url is written menualy in the browser) and we are
+   signed in we will be redirected to shipping page, if not the
+   browser redirects to the sign in page.
+
+
+  
+
+
+
+/////// REMARKS ///////
+ * cartSlice.js is a redux slice for the cart state mannagment
+    in the frontend. 
+ * reducers are redux methods to inject state changes to react. 
+ * the PrivateRoute component can be used to make routes private and
+   accessible only fot signed in users simmply by nesting the routes
+   we want private inside a Route element that uses PrivateRoute as
+   its rendered element. (this is why it takes an empty string as a path url) 
+ * the Outlet method imported from react-router-dom renders its route's
+   child Route components.
+
+
