@@ -1,6 +1,7 @@
 full-stack app with protected private routs and hashed cookies
 error stacking
 mongo db atlas
+mongoose
 postman
 mongodb compass
 private routs
@@ -12,7 +13,7 @@ http
 cookies mannagment
 save cookies to server
 admin dashboard
-paypal and credit card payment api integration v
+paypal and credit card payment api integration
 
 
 // building the view and server functionality

@@ -15,6 +15,7 @@ import { Provider } from "react-redux";
 import store from "./store.js";
 // import 'bootstrap/dist/css/bootstrap.min.css';
 import PrivateRoute from "./components/PrivateRoute.jsx";
+import AdminRoute from "./components/AdminRoute.jsx";
 import HomeView from "./views/HomeView.jsx";
 import ProductView from "./views/ProductView.jsx";
 import CartView from "./views/CartView.jsx";
@@ -24,6 +25,10 @@ import ShippingView from "./views/ShippingView.jsx";
 import PaymentView from "./views/PaymentView.jsx";
 import PlaceOrderView from "./views/PlaceOrderView.jsx";
 import OrderView from "./views/OrderView.jsx";
+import ProfileView from "./views/ProfileView.jsx";
+import OrderListView from "./views/admin/OrderListView.jsx";
+import ProductListView from "./views/admin/ProductListView.jsx";
+import ProductEditView from "./views/admin/ProductEditView.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -38,6 +43,12 @@ const router = createBrowserRouter(
         <Route path="/payment" element={<PaymentView />} />
         <Route path="/orders" element={<PlaceOrderView />} />
         <Route path="/order/:id" element={<OrderView />} />
+        <Route path="/profile" element={<ProfileView />} />
+      </Route>
+      <Route path="" element={<AdminRoute />}>
+        <Route path="/admin/orderlist" element={<OrderListView />} />
+        <Route path="/admin/productlist" element={<ProductListView />} />
+        <Route path="/admin/product/:id/edit" element={<ProductEditView />} />
       </Route>
     </Route>
   )
