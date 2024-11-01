@@ -5,10 +5,8 @@ import {
   Col,
   ListGroup,
   Image,
-  Form,
   Button,
   Card,
-  ListGroupItem,
 } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
@@ -30,6 +28,9 @@ const OrderView = () => {
     isLoading,
     error,
   } = useGetOrderDetailsQuery(orderId);
+
+  console.log(order);
+  
 
   const [payOrder, { isLoading: loadingPay }] = usePayOrderMutation();
 
@@ -113,7 +114,7 @@ const OrderView = () => {
   return isLoading ? (
     <Loader />
   ) : error ? (
-    <Message variant="danger" />
+    <Message variant="danger">{error.data.message}</Message>
   ) : (
     <>
       <h1>Order {order._id}</h1>

@@ -29,6 +29,8 @@ import ProfileView from "./views/ProfileView.jsx";
 import OrderListView from "./views/admin/OrderListView.jsx";
 import ProductListView from "./views/admin/ProductListView.jsx";
 import ProductEditView from "./views/admin/ProductEditView.jsx";
+import UserListView from "./views/admin/UserListView.jsx";
+import UserEditView from "./views/admin/UserEditView.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -38,6 +40,7 @@ const router = createBrowserRouter(
       <Route path="/cart" element={<CartView />} />
       <Route path="/login" element={<LoginView />} />
       <Route path="/register" element={<RegisterView />} />
+
       <Route path="" element={<PrivateRoute />}>
         <Route path="/shipping" element={<ShippingView />} />
         <Route path="/payment" element={<PaymentView />} />
@@ -45,10 +48,13 @@ const router = createBrowserRouter(
         <Route path="/order/:id" element={<OrderView />} />
         <Route path="/profile" element={<ProfileView />} />
       </Route>
+
       <Route path="" element={<AdminRoute />}>
         <Route path="/admin/orderlist" element={<OrderListView />} />
         <Route path="/admin/productlist" element={<ProductListView />} />
         <Route path="/admin/product/:id/edit" element={<ProductEditView />} />
+        <Route path="/admin/userlist" element={<UserListView />} />
+        <Route path="/admin/user/:id/edit" element={<UserEditView />} />
       </Route>
     </Route>
   )

@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import {
   useUpdateProductMutation,
   useGetProductDetailsQuery,
+  useUploadProductImageMutation,
 } from "../../slices/productsApiSlice";
 
 const ProductEditView = () => {
@@ -22,29 +23,32 @@ const ProductEditView = () => {
 
   const {
     data: product,
-    isLoading,
-    refetch,
+    // isLoading,
+    // refetch,
     error,
   } = useGetProductDetailsQuery(productId);
 
   const [updateProduct, { isLoading: isUpdating }] = useUpdateProductMutation();
 
+  const [uploadProductImage, { isLoading: loadingUpload }] =
+    useUploadProductImageMutation();
+
   const navigate = useNavigate();
 
   useEffect(() => {
     if (product) {
-      setName(product.name)
-      setPrice(product.price)
-      setImage(product.image)
-      setBrand(product.brand)
-      setCategory(product.category)
-      setCountInStock(product.countInStock)
-      setDescription(product.description)
+      setName(product.name);
+      setPrice(product.price);
+      setImage(product.image);
+      setBrand(product.brand);
+      setCategory(product.category);
+      setCountInStock(product.countInStock);
+      setDescription(product.description);
     }
   }, [product]);
 
   const submitHandler = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     const updatedProduct = {
       productId,
       name,
@@ -55,14 +59,26 @@ const ProductEditView = () => {
       countInStock,
       description,
     };
-    
+
     const result = await updateProduct(updatedProduct);
 
     if (result.error) {
-      toast.error(result.error)
+      toast.error(result.error);
     } else {
-      toast.success("Product Updated")
-      navigate("/admin/productlist")
+      toast.success("Product Updated");
+      navigate("/admin/productlist");
+    }
+  };
+
+  const uploadFileHandler = async (e) => {
+    const formData = new FormData();
+    formData.append("image", e.target.files[0]);
+    try {
+      const res = await uploadProductImage(formData).unwrap();
+      toast.success(res.message);
+      setImage(res.image);
+    } catch (err) {
+      toast.error(err?.data?.message || err.error);
     }
   };
 
@@ -76,7 +92,7 @@ const ProductEditView = () => {
         <h1>Edit Product</h1>
         {isUpdating && <Loader />}
 
-        {isLoading ? (
+        {loadingUpload ? (
           <Loader />
         ) : error ? (
           <Message variant="danger">{error}</Message>
@@ -102,7 +118,20 @@ const ProductEditView = () => {
               ></Form.Control>
             </Form.Group>
 
-            {/* IMAGE INPUT PLACEHOLDER */}
+            <Form.Group controlId="image" className="my-2">
+              <Form.Label>Image</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Enter image url"
+                value={image}
+                onChange={(e) => setImage}
+              ></Form.Control>
+              <Form.Control
+                type="file"
+                label="Choose file"
+                onChange={uploadFileHandler}
+              ></Form.Control>
+            </Form.Group>
 
             <Form.Group controlId="brand" className="my-2">
               <Form.Label>Brand</Form.Label>
