@@ -1,6 +1,5 @@
-import { LinkContainer } from "react-router-bootstrap";
 import { Table, Button } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { FaTimes } from "react-icons/fa";
 import Message from "../../components/Message";
 import Loader from "../../components/Loader.jsx";
@@ -51,11 +50,11 @@ const OrderListView = () => {
                   )}
                 </td>
                 <td>
-                  <LinkContainer to={`/order/${order._id}`}>
-                    <Button variant="light" className="btn-sm">
+                  {/* <LinkContainer as={Link} to={`/order/${order._id}`}> */}
+                    <Button as={Link} to={`/order/${order._id}`} variant="light" className="btn-sm">
                       Details
                     </Button>
-                  </LinkContainer>
+                  {/* </LinkContainer> */}
                 </td>
               </tr>
             ))}

@@ -92,7 +92,7 @@ const ProductEditView = () => {
         <h1>Edit Product</h1>
         {isUpdating && <Loader />}
 
-        {loadingUpload ? (
+        {isUpdating ? (
           <Loader />
         ) : error ? (
           <Message variant="danger">{error}</Message>
@@ -131,6 +131,7 @@ const ProductEditView = () => {
                 label="Choose file"
                 onChange={uploadFileHandler}
               ></Form.Control>
+              {loadingUpload && <Loader />}
             </Form.Group>
 
             <Form.Group controlId="brand" className="my-2">

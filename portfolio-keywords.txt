@@ -1,3 +1,6 @@
+[ KEYWORDS, FUTURE IMPROVMENTS, STUDY, REMARKS ]
+
+/////// KEYWORDS \\\\\\\
 full-stack app with protected private routs and hashed cookies
 error stacking
 mongo db atlas
@@ -16,9 +19,16 @@ admin dashboard
 paypal and credit card payment api integration
 
 
+/////// FUTURE IMPROVMENTS \\\\\\\
+  - enable up to 4 photos per product to upload
+  - add pagination to users list and order list views
+  - make the pagination button active on first load (page 1 of the pagination in the home view)
+
+
+/////// STUDY \\\\\\\
 // building the view and server functionality
    for shipping (proccess description) //
-
+<shipping description start>
 < adding shipping address to the state using the cart *slice >
  - initializing a variable for shipping address in the initial cart slice
    state, (also saved to local storage). (cartSlice.js)
@@ -92,10 +102,7 @@ paypal and credit card payment api integration
    button for it now so url is written menualy in the browser) and we are
    signed in we will be redirected to shipping page, if not the
    browser redirects to the sign in page.
-
-
-  
-
+<shipping description end>
 
 
 /////// REMARKS ///////

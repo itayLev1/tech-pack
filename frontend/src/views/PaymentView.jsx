@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from 'react-redux';
-import { Navigate, useNavigate } from'react-router-dom';
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { Form, Button, Col } from "react-bootstrap";
 import FormContainer from "../components/FormContainer";
 import CheckoutSteps from "../components/CheckoutSteps";
@@ -9,7 +9,7 @@ import { savePaymentMethod } from "../slices/cartSlice";
 const PaymentView = () => {
   const [paymentMethod, setPaymentMethod] = useState("paypal");
 
-  const dispatch = useDispatch();;
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const cart = useSelector((state) => state.cart);
@@ -17,15 +17,15 @@ const PaymentView = () => {
 
   useEffect(() => {
     if (!shippingAddress) {
-        navigate('/shipping')
+      navigate("/shipping");
     }
-  }, [shippingAddress, navigate])
+  }, [shippingAddress, navigate]);
 
   const submitHandler = (e) => {
-    e.preventDefault()
-    dispatch(savePaymentMethod(paymentMethod))
-    navigate('/orders')
-  }
+    e.preventDefault();
+    dispatch(savePaymentMethod(paymentMethod));
+    navigate("/orders");
+  };
 
   return (
     <FormContainer>
@@ -33,8 +33,7 @@ const PaymentView = () => {
 
       <h1>Payment Method</h1>
 
-      <Form onSubmit={ submitHandler}>
-
+      <Form onSubmit={submitHandler}>
         <Form.Group>
           <Form.Label as="legend">Select Method</Form.Label>
           <Col>
@@ -54,7 +53,6 @@ const PaymentView = () => {
         <Button type="submit" variant="primary">
           Continue
         </Button>
-
       </Form>
     </FormContainer>
   );

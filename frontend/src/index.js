@@ -11,6 +11,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
+import { HelmetProvider } from "react-helmet-async";
 import { Provider } from "react-redux";
 import store from "./store.js";
 // import 'bootstrap/dist/css/bootstrap.min.css';
@@ -36,6 +37,9 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
       <Route index={true} path="/" element={<HomeView />} />
+      <Route path="/search/:keyword" element={<HomeView />} />
+      <Route path="/page/:pageNumber" element={<HomeView />} />
+      <Route path="/search/:keyword/page/:pageNumber" element={<HomeView />} />
       <Route path="/product/:id" element={<ProductView />} />
       <Route path="/cart" element={<CartView />} />
       <Route path="/login" element={<LoginView />} />
@@ -52,6 +56,10 @@ const router = createBrowserRouter(
       <Route path="" element={<AdminRoute />}>
         <Route path="/admin/orderlist" element={<OrderListView />} />
         <Route path="/admin/productlist" element={<ProductListView />} />
+        <Route
+          path="/admin/productlist/:pageNumber"
+          element={<ProductListView />}
+        />
         <Route path="/admin/product/:id/edit" element={<ProductEditView />} />
         <Route path="/admin/userlist" element={<UserListView />} />
         <Route path="/admin/user/:id/edit" element={<UserEditView />} />
@@ -63,11 +71,13 @@ const router = createBrowserRouter(
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <PayPalScriptProvider deferLoading={true}>
-        <RouterProvider router={router} />
-      </PayPalScriptProvider>
-    </Provider>
+    <HelmetProvider>
+      <Provider store={store}>
+        <PayPalScriptProvider deferLoading={true}>
+          <RouterProvider router={router} />
+        </PayPalScriptProvider>
+      </Provider>
+    </HelmetProvider>
   </React.StrictMode>
 );
 

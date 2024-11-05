@@ -77,11 +77,11 @@ const OrderView = () => {
     })
   };
 
-  async function onApproveTest() {
-    await payOrder({ orderId, details: { payer: {} } });
-    refetch();
-    toast.success("Payment Successful");
-  };
+  // async function onApproveTest() {
+  //   await payOrder({ orderId, details: { payer: {} } });
+  //   refetch();
+  //   toast.success("Payment Successful");
+  // };
 
   function onError(error) {
     toast.error(error.message)
@@ -123,12 +123,12 @@ const OrderView = () => {
           <ListGroup variant="flush">
             <ListGroup.Item>
               <h2>Shipping</h2>
-              <p>
+              {/* <p>
                 <strong>Name: </strong> {order.user.name}
-              </p>
-              <p>
+              </p> */}
+              {/* <p>
                 <strong>Email: </strong> {order.user.email}
-              </p>
+              </p> */}
               <p>
                 <strong>Address: </strong> {order.shippingAddress.address},{" "}
                 {order.shippingAddress.city} {order.shippingAddress.postalCode}{" "}

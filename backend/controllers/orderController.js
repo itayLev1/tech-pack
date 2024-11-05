@@ -59,7 +59,6 @@ const getOrderById = asyncHandler(async (req, res) => {
 
   console.log(order);
   
-
   if (order) {
     res.json(order);
   } else {
