@@ -27,10 +27,7 @@ const OrderView = () => {
     refetch,
     isLoading,
     error,
-  } = useGetOrderDetailsQuery(orderId);
-
-  console.log(order);
-  
+  } = useGetOrderDetailsQuery(orderId);  
 
   const [payOrder, { isLoading: loadingPay }] = usePayOrderMutation();
 
@@ -68,11 +65,11 @@ const OrderView = () => {
   function onApprove(data, actions) {
     return actions.order.capture().then(async function (details) {
       try {
-        await payOrder({ orderId, details });
+        await payOrder({ orderId, details }).unwrap()
         refetch();
-        toast.success("Payment Successful");
+        toast.success("Payment Successful")
       } catch (error) {
-        toast.error(error?.data?.message || error.message);
+        toast.error(error?.data?.message || error.message)
       }
     })
   };
@@ -114,7 +111,7 @@ const OrderView = () => {
   return isLoading ? (
     <Loader />
   ) : error ? (
-    <Message variant="danger">{error.data.message}</Message>
+    <Message variant="danger">{error.data.message || error.error}</Message>
   ) : (
     <>
       <h1>Order {order._id}</h1>

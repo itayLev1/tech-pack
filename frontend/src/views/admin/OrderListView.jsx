@@ -16,7 +16,7 @@ const OrderListView = () => {
       ) : error ? (
         <Message variant="danger">{error}</Message>
       ) : (
-        <Table striped hover responsive className="table-sm">
+        <Table striped bordered hover responsive className="table-sm" style={{ fontWeight: 500, color: "black" }}>
           <thead>
             <tr>
               <th>ID</th>
@@ -30,7 +30,7 @@ const OrderListView = () => {
           </thead>
           <tbody>
             {orders.map((order) => (
-              <tr key={order._id}>
+              <tr key={order._id} style={{ color: "black" }}>
                 <td>{order._id}</td>
                 <td>{order.user && order.user.name}</td>
                 <td>{order.createdAt.substring(0, 10)}</td>
@@ -51,7 +51,7 @@ const OrderListView = () => {
                 </td>
                 <td>
                   {/* <LinkContainer as={Link} to={`/order/${order._id}`}> */}
-                    <Button as={Link} to={`/order/${order._id}`} variant="light" className="btn-sm">
+                    <Button as={Link} to={`/order/${order._id}`} variant="secondary" className="btn-sm" style={{ fontWeight: 500, backgroundColor: "#999" }}>
                       Details
                     </Button>
                   {/* </LinkContainer> */}
